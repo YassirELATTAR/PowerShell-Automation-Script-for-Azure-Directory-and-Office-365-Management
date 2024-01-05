@@ -14,7 +14,7 @@ python createCSV.py $tenant  $ip
 $counter=0
 
 
-#Khalih yerta7 meskin:
+#Giving it time to let commands fully-run:
 Start-Sleep -Seconds 3
 $users = Import-Csv -Path "users_$tenant.csv"
 
@@ -110,6 +110,28 @@ $users | foreach {Set-Mailbox $_.Identity -DeliverToMailboxAndForward $true -For
 
 
 $counter=0
+
+
+"""
+The following part is to create rules and/or connectors for your account.
+Make sure you UN-COMMENT the commands to be able to work.
+"""
+
+
+
+#Add Rules: (This one can be edited according to the header you want to remove/add)
+#New-TransportRule -Name "Sender" -RemoveHeader "Sender"
+#New-TransportRule -Name "Received" -RemoveHeader "Received"
+#New-TransportRule -Name "SCL" -SetSCL -1
+
+
+
+#Add Connectors:
+#New-InboundConnector -Enable $true -Name 'Connector1' -SenderDomains *  -ConnectorType OnPremises -RestrictDomainsToIPAddresses $false  -RequireTls  $true -SenderIPAddresses 10.10.10.10
+#New-InboundConnector -Enable $true -Name 'Connector2' -SenderDomains *  -ConnectorType OnPremises -RestrictDomainsToIPAddresses $false  -RequireTls  $true -SenderIPAddresses 11.11.11.11
+
+
+
 
 #Disconnect-AzureAD
 #Disconnect-ExchangeOnline
