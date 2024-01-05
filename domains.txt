@@ -1,0 +1,2 @@
+subdomain1.mydomain.com
+subdomain2.mydomain.com
